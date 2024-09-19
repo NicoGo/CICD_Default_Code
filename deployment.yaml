@@ -1,0 +1,35 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-python-deployment
+  labels:
+    app: flask-python
+spec:
+  replicas: 2  # Number of desired pods (adjust as needed)
+  selector:
+    matchLabels:
+      app: flask-python
+  template:
+    metadata:
+      labels:
+        app: flask-python
+    spec:
+      containers:
+      - name: flask-python-container
+        image: nicolasgo/flask-python:master # Docker image from Docker Hub
+        ports:
+        - containerPort: 802  # Flask typically runs on port 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-python-service
+spec:
+  selector:
+    app: flask-python
+  ports:
+    - protocol: TCP
+      port: 80  # Expose the service on port 80
+      targetPort: 802  # Target the Flask app's container port
+  type: LoadBalancer  # For external access, change to NodePort or ClusterIP if internal onlyd
