@@ -2,7 +2,7 @@ name: Build and push Docker image to dockerhub
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
     
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
